@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BMI、BMR 與 TDEE 身體生理指標計算器">
+  <title>身體指標計算器</title>
+  <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="min-h-screen font-body antialiased">
+  <main class="mx-auto grid min-h-screen w-full max-w-6xl lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+    <section class="px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16" aria-labelledby="page-title">
+      <div class="mb-9 flex items-start justify-between gap-5 border-b border-slate-300 pb-7">
+        <div>
+          <p class="mb-2 text-xs font-bold uppercase text-pine">Health metrics</p>
+          <h1 id="page-title" class="max-w-xl font-display text-3xl font-bold leading-tight sm:text-4xl">身體生理指標計算器</h1>
+          <p class="mt-3 max-w-xl text-sm leading-6 text-slate-600">輸入基本資料，分別計算 BMI、基礎代謝率與每日總熱量消耗。</p>
+        </div>
+        <div class="hidden h-14 w-14 shrink-0 place-items-center border border-pine bg-mist text-xl font-bold text-pine sm:grid" aria-hidden="true">＋</div>
+      </div>
+
+      <form id="calculator-form" novalidate>
+        <div class="grid gap-x-5 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label for="height" class="mb-2 block text-sm font-bold">身高 <span class="font-normal text-slate-500">cm</span></label>
+            <input id="height" name="height" class="field-control" type="number" min="0" step="0.1" inputmode="decimal" placeholder="175.5" aria-describedby="height-error">
+            <p id="height-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
+          </div>
+          <div>
+            <label for="weight" class="mb-2 block text-sm font-bold">體重 <span class="font-normal text-slate-500">kg</span></label>
+            <input id="weight" name="weight" class="field-control" type="number" min="0" step="0.1" inputmode="decimal" placeholder="70" aria-describedby="weight-error">
+            <p id="weight-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
+          </div>
+          <div>
+            <label for="age" class="mb-2 block text-sm font-bold">年齡 <span class="font-normal text-slate-500">歲</span></label>
+            <input id="age" name="age" class="field-control" type="number" min="1" step="1" inputmode="numeric" placeholder="25" aria-describedby="age-error">
+            <p id="age-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
+          </div>
+          <fieldset>
+            <legend class="mb-2 text-sm font-bold">性別</legend>
+            <div class="grid grid-cols-2" aria-label="性別">
+              <label class="gender-option rounded-l-md">
+                <input class="sr-only" type="radio" name="gender" value="male">
+                男性
+              </label>
+              <label class="gender-option -ml-px rounded-r-md">
+                <input class="sr-only" type="radio" name="gender" value="female">
+                女性
+              </label>
+            </div>
+            <p class="mt-1 min-h-5 text-xs text-slate-500">用於 Mifflin-St Jeor 公式</p>
+          </fieldset>
+          <div class="sm:col-span-2">
+            <label for="activity-level" class="mb-2 block text-sm font-bold">活動量</label>
+            <select id="activity-level" name="activityLevel" class="field-control">
+              <option value="">請選擇活動程度</option>
+              <option value="sedentary">久坐，無運動</option>
+              <option value="light">輕度，每週運動 1–3 天</option>
+              <option value="moderate">中度，每週運動 3–5 天</option>
+              <option value="heavy">高度，每週運動 6–7 天</option>
+              <option value="athlete">極高度，每天高強度訓練</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-3 gap-2 sm:gap-3" aria-label="計算操作">
+          <button id="btn-bmi" class="calculate-button" type="button" disabled>計算 BMI</button>
+          <button id="btn-bmr" class="calculate-button" type="button" disabled>計算 BMR</button>
+          <button id="btn-tdee" class="calculate-button" type="button" disabled>計算 TDEE</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="flex min-h-[340px] flex-col justify-between bg-ink px-5 py-10 text-white sm:px-10 lg:min-h-screen lg:px-12 lg:py-16" aria-labelledby="result-title">
+      <div>
+        <p class="mb-2 text-xs font-bold uppercase text-emerald-300">Your result</p>
+        <h2 id="result-title" class="font-display text-2xl font-bold">計算結果</h2>
+        <div id="result" class="mt-10 min-h-40" aria-live="polite" aria-atomic="true">
+          <p class="max-w-sm text-sm leading-6 text-slate-300">完成必要欄位後，選擇要計算的指標。</p>
+        </div>
+        <div id="api-error" class="mt-5 min-h-12 border-l-2 border-coral pl-4 text-sm leading-6 text-red-200" role="alert" aria-live="assertive"></div>
+      </div>
+      <dl class="mt-12 grid grid-cols-2 gap-5 border-t border-slate-600 pt-7 text-xs text-slate-300">
+        <div>
+          <dt class="font-bold text-white">BMI 分類</dt>
+          <dd class="mt-1">採亞洲成人門檻</dd>
+        </div>
+        <div>
+          <dt class="font-bold text-white">熱量估算</dt>
+          <dd class="mt-1">單位 kcal／日</dd>
+        </div>
+      </dl>
+    </aside>
+  </main>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
