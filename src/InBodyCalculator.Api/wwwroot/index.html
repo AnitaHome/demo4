@@ -16,8 +16,8 @@
 </head>
 <body class="min-h-screen font-body antialiased">
   <main class="mx-auto grid min-h-screen w-full max-w-6xl lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
-    <section class="px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 dark:bg-surface" aria-labelledby="page-title">
-      <div class="mb-9 flex items-start justify-between gap-5 border-b border-slate-300 dark:border-slate-700 pb-7">
+    <section class="px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 dark:bg-surface animate-slide-up" aria-labelledby="page-title">
+      <div class="mb-9 flex items-start justify-between gap-5 border-b border-slate-300 dark:border-slate-700 pb-7 animate-fade-in">
         <div>
           <p class="mb-2 text-xs font-bold uppercase text-pine">Health metrics</p>
           <h1 id="page-title" class="max-w-xl font-display text-3xl font-bold leading-tight sm:text-4xl">身體生理指標計算器</h1>
@@ -89,9 +89,9 @@
       </form>
     </section>
 
-    <aside class="flex min-h-[340px] flex-col justify-between bg-ink px-5 py-10 text-white sm:px-10 lg:min-h-screen lg:px-12 lg:py-16" aria-labelledby="result-title">
+    <aside class="flex min-h-[340px] flex-col justify-between bg-ink px-5 py-10 text-white sm:px-10 lg:min-h-screen lg:px-12 lg:py-16 animate-fade-in [animation-delay:200ms]" aria-labelledby="result-title">
       <div>
-        <p class="mb-2 text-xs font-bold uppercase text-emerald-300">Your result</p>
+        <p class="mb-2 text-xs font-bold uppercase result-accent-text">Your result</p>
         <h2 id="result-title" class="font-display text-2xl font-bold">計算結果</h2>
         <div id="result" class="mt-10 min-h-40" aria-live="polite" aria-atomic="true">
           <p class="max-w-sm text-sm leading-6 text-slate-300">完成必要欄位後，選擇要計算的指標。</p>

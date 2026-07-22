@@ -65,9 +65,9 @@ const getPayload = metric => {
 
 const renderResult = (metric, data) => {
   const templates = {
-    bmi: () => `<p class="text-sm text-slate-300">BMI</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.bmi.toFixed(2)}</p><p class="mt-4 inline-block border border-emerald-400 px-3 py-1 text-sm text-emerald-200">${data.category}</p>`,
-    bmr: () => `<p class="text-sm text-slate-300">基礎代謝率</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.bmr.toFixed(2)}</p><p class="mt-4 text-sm text-slate-300">kcal／日</p>`,
-    tdee: () => `<p class="text-sm text-slate-300">每日總熱量消耗</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.tdee.toFixed(2)}</p><p class="mt-4 text-sm text-slate-300">kcal／日 · BMR ${data.bmr.toFixed(2)}</p>`,
+    bmi:  () => `<div class="animate-result-pop"><p class="text-sm text-slate-300">BMI</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.bmi.toFixed(2)}</p><p class="mt-4 result-badge">${data.category}</p></div>`,
+    bmr:  () => `<div class="animate-result-pop"><p class="text-sm text-slate-300">基礎代謝率</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.bmr.toFixed(2)}</p><p class="mt-4 text-sm text-slate-300">kcal／日</p></div>`,
+    tdee: () => `<div class="animate-result-pop"><p class="text-sm text-slate-300">每日總熱量消耗</p><p class="mt-2 font-display text-5xl font-bold text-white">${data.tdee.toFixed(2)}</p><p class="mt-4 text-sm text-slate-300">kcal／日 · BMR ${data.bmr.toFixed(2)}</p></div>`,
   };
   resultRegion.innerHTML = templates[metric]();
 };

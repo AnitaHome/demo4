@@ -3,22 +3,48 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Light theme – warm orange palette */
+    --color-ink:     60 26 8;         /* #3c1a08  deep warm brown  */
+    --color-canvas:  255 250 245;     /* #fffaf5  warm cream white */
+    --color-pine:    201 107 40;      /* #c96b28  warm orange      */
+    --color-mist:    253 232 204;     /* #fde8cc  light orange     */
+    --color-surface: 254 243 233;     /* #fef3e9  warm panel       */
+    /* Result-aside accent (amber) */
+    --result-accent: #fbbf24;
+    --result-border: #f59e0b;
+    --result-muted:  #fde68a;
+  }
+
+  .dark {
+    /* Dark theme – deep purple palette */
+    --color-ink:     13 9 32;         /* #0d0920  deep purple-black   */
+    --color-canvas:  237 233 248;     /* #ede9f8  light lavender      */
+    --color-pine:    167 139 250;     /* #a78bfa  violet-400          */
+    --color-mist:    55 29 84;        /* #371d54  dark purple mist    */
+    --color-surface: 28 16 52;        /* #1c1034  dark purple surface */
+    /* Result-aside accent (violet) */
+    --result-accent: #c4b5fd;
+    --result-border: #8b5cf6;
+    --result-muted:  #ddd6fe;
+  }
+
   body {
-    background-color: theme('colors.canvas');
+    background-color: rgb(var(--color-canvas));
     background-image:
-      linear-gradient(rgba(20, 107, 88, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(20, 107, 88, 0.035) 1px, transparent 1px);
+      linear-gradient(rgb(var(--color-pine) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--color-pine) / 0.05) 1px, transparent 1px);
     background-size: 32px 32px;
-    color: theme('colors.ink');
+    color: rgb(var(--color-ink));
   }
 
   .dark body {
-    background-color: theme('colors.ink');
+    background-color: rgb(var(--color-ink));
     background-image:
-      linear-gradient(rgba(220, 233, 228, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(220, 233, 228, 0.04) 1px, transparent 1px);
+      linear-gradient(rgb(var(--color-pine) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--color-pine) / 0.06) 1px, transparent 1px);
     background-size: 32px 32px;
-    color: theme('colors.canvas');
+    color: rgb(var(--color-canvas));
   }
 
   input[type='number'] {
@@ -37,11 +63,22 @@
   }
 
   .calculate-button {
-    @apply flex h-12 min-w-0 items-center justify-center border border-pine bg-pine px-3 text-sm font-bold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:border-slate-600 dark:disabled:bg-slate-700 dark:disabled:text-slate-400 dark:focus-visible:ring-offset-ink;
+    @apply flex h-12 min-w-0 items-center justify-center border border-pine bg-pine px-3 text-sm font-bold text-white transition hover:scale-[1.03] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:border-slate-600 dark:disabled:bg-slate-700 dark:disabled:text-slate-400 dark:focus-visible:ring-offset-ink;
     border-radius: 6px;
   }
 
   .gender-option {
     @apply flex h-12 cursor-pointer items-center justify-center border border-slate-300 bg-white font-semibold transition has-[:checked]:border-pine has-[:checked]:bg-mist has-[:checked]:text-pine dark:border-slate-600 dark:bg-surface dark:text-canvas dark:has-[:checked]:border-pine dark:has-[:checked]:bg-pine/20 dark:has-[:checked]:text-pine;
+  }
+
+  /* Result-aside themed accent elements */
+  .result-accent-text {
+    color: var(--result-accent);
+  }
+
+  .result-badge {
+    @apply inline-block border px-3 py-1 text-sm;
+    border-color: var(--result-border);
+    color: var(--result-muted);
   }
 }

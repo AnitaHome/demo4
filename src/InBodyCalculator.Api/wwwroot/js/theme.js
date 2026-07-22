@@ -27,6 +27,15 @@ export const toggleTheme = () => {
   applyTheme(next);
   localStorage.setItem(STORAGE_KEY, next);
   updateToggleButton();
+
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const icon = btn.querySelector(isDark ? '.icon-sun' : '.icon-moon');
+    if (icon) {
+      icon.classList.add('animate-spin-once');
+      icon.addEventListener('animationend', () => icon.classList.remove('animate-spin-once'), { once: true });
+    }
+  }
 };
 
 const btn = document.getElementById('theme-toggle');
