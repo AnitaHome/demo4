@@ -1,14 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./wwwroot/**/*.html', './wwwroot/**/*.js'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        ink: '#172321',
-        canvas: '#f4f7f5',
-        pine: '#146b58',
-        coral: '#e06b4f',
-        mist: '#dce9e4',
+        ink:     '#172321',
+        canvas:  '#f4f7f5',
+        pine:    '#146b58',
+        coral:   '#e06b4f',
+        mist:    '#dce9e4',
+        surface: '#1e3330',
       },
       fontFamily: {
         display: ['Georgia', 'Noto Serif TC', 'serif'],

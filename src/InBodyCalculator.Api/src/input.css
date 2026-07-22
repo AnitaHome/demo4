@@ -12,6 +12,15 @@
     color: theme('colors.ink');
   }
 
+  .dark body {
+    background-color: theme('colors.ink');
+    background-image:
+      linear-gradient(rgba(220, 233, 228, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(220, 233, 228, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: theme('colors.canvas');
+  }
+
   input[type='number'] {
     appearance: textfield;
   }
@@ -19,20 +28,20 @@
 
 @layer components {
   .field-control {
-    @apply h-12 w-full border border-slate-300 bg-white px-3 text-base outline-none transition focus:border-pine focus:ring-2 focus:ring-pine/20;
+    @apply h-12 w-full border border-slate-300 bg-white px-3 text-base outline-none transition focus:border-pine focus:ring-2 focus:ring-pine/20 dark:border-slate-600 dark:bg-surface dark:text-canvas dark:placeholder:text-slate-500 dark:focus:ring-pine/30;
     border-radius: 6px;
   }
 
   .field-control[aria-invalid='true'] {
-    @apply border-coral ring-2 ring-coral/15;
+    @apply border-coral ring-2 ring-coral/15 dark:ring-coral/20;
   }
 
   .calculate-button {
-    @apply flex h-12 min-w-0 items-center justify-center border border-pine bg-pine px-3 text-sm font-bold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-200 disabled:text-slate-500;
+    @apply flex h-12 min-w-0 items-center justify-center border border-pine bg-pine px-3 text-sm font-bold text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-200 disabled:text-slate-500 dark:disabled:border-slate-600 dark:disabled:bg-slate-700 dark:disabled:text-slate-400 dark:focus-visible:ring-offset-ink;
     border-radius: 6px;
   }
 
   .gender-option {
-    @apply flex h-12 cursor-pointer items-center justify-center border border-slate-300 bg-white font-semibold transition has-[:checked]:border-pine has-[:checked]:bg-mist has-[:checked]:text-pine;
+    @apply flex h-12 cursor-pointer items-center justify-center border border-slate-300 bg-white font-semibold transition has-[:checked]:border-pine has-[:checked]:bg-mist has-[:checked]:text-pine dark:border-slate-600 dark:bg-surface dark:text-canvas dark:has-[:checked]:border-pine dark:has-[:checked]:bg-pine/20 dark:has-[:checked]:text-pine;
   }
 }

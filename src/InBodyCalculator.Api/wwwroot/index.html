@@ -6,33 +6,51 @@
   <meta name="description" content="BMI、BMR 與 TDEE 身體生理指標計算器">
   <title>身體指標計算器</title>
   <link rel="stylesheet" href="/css/output.css">
+  <script>
+    (function () {
+      const t = localStorage.getItem('theme');
+      const dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.classList.add('dark');
+    }());
+  </script>
 </head>
 <body class="min-h-screen font-body antialiased">
   <main class="mx-auto grid min-h-screen w-full max-w-6xl lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
-    <section class="px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16" aria-labelledby="page-title">
-      <div class="mb-9 flex items-start justify-between gap-5 border-b border-slate-300 pb-7">
+    <section class="px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 dark:bg-surface" aria-labelledby="page-title">
+      <div class="mb-9 flex items-start justify-between gap-5 border-b border-slate-300 dark:border-slate-700 pb-7">
         <div>
           <p class="mb-2 text-xs font-bold uppercase text-pine">Health metrics</p>
           <h1 id="page-title" class="max-w-xl font-display text-3xl font-bold leading-tight sm:text-4xl">身體生理指標計算器</h1>
-          <p class="mt-3 max-w-xl text-sm leading-6 text-slate-600">輸入基本資料，分別計算 BMI、基礎代謝率與每日總熱量消耗。</p>
+          <p class="mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-400">輸入基本資料，分別計算 BMI、基礎代謝率與每日總熱量消耗。</p>
         </div>
-        <div class="hidden h-14 w-14 shrink-0 place-items-center border border-pine bg-mist text-xl font-bold text-pine sm:grid" aria-hidden="true">＋</div>
+        <div class="flex shrink-0 flex-col items-end gap-3">
+          <button id="theme-toggle" type="button" aria-label="切換為暗色主題"
+            class="flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-pine hover:text-pine dark:border-slate-600 dark:bg-surface dark:text-slate-300 dark:hover:border-pine dark:hover:text-pine">
+            <svg class="icon-sun hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+            </svg>
+            <svg class="icon-moon h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            </svg>
+          </button>
+          <div class="hidden h-14 w-14 place-items-center border border-pine bg-mist text-xl font-bold text-pine dark:bg-pine/20 sm:grid" aria-hidden="true">＋</div>
+        </div>
       </div>
 
       <form id="calculator-form" novalidate>
         <div class="grid gap-x-5 gap-y-6 sm:grid-cols-2">
           <div>
-            <label for="height" class="mb-2 block text-sm font-bold">身高 <span class="font-normal text-slate-500">cm</span></label>
+            <label for="height" class="mb-2 block text-sm font-bold">身高 <span class="font-normal text-slate-500 dark:text-slate-400">cm</span></label>
             <input id="height" name="height" class="field-control" type="number" min="0" step="0.1" inputmode="decimal" placeholder="175.5" aria-describedby="height-error">
             <p id="height-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
           </div>
           <div>
-            <label for="weight" class="mb-2 block text-sm font-bold">體重 <span class="font-normal text-slate-500">kg</span></label>
+            <label for="weight" class="mb-2 block text-sm font-bold">體重 <span class="font-normal text-slate-500 dark:text-slate-400">kg</span></label>
             <input id="weight" name="weight" class="field-control" type="number" min="0" step="0.1" inputmode="decimal" placeholder="70" aria-describedby="weight-error">
             <p id="weight-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
           </div>
           <div>
-            <label for="age" class="mb-2 block text-sm font-bold">年齡 <span class="font-normal text-slate-500">歲</span></label>
+            <label for="age" class="mb-2 block text-sm font-bold">年齡 <span class="font-normal text-slate-500 dark:text-slate-400">歲</span></label>
             <input id="age" name="age" class="field-control" type="number" min="1" step="1" inputmode="numeric" placeholder="25" aria-describedby="age-error">
             <p id="age-error" class="mt-1 min-h-5 text-xs text-coral" role="alert"></p>
           </div>
@@ -48,7 +66,7 @@
                 女性
               </label>
             </div>
-            <p class="mt-1 min-h-5 text-xs text-slate-500">用於 Mifflin-St Jeor 公式</p>
+            <p class="mt-1 min-h-5 text-xs text-slate-500 dark:text-slate-400">用於 Mifflin-St Jeor 公式</p>
           </fieldset>
           <div class="sm:col-span-2">
             <label for="activity-level" class="mb-2 block text-sm font-bold">活動量</label>
@@ -92,6 +110,7 @@
       </dl>
     </aside>
   </main>
+  <script type="module" src="/js/theme.js"></script>
   <script type="module" src="/js/app.js"></script>
 </body>
 </html>
